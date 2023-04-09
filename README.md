@@ -4,7 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project implements the below functionality.
+
+- Relational Database (Firebase)
+- Firebase.Auth
+- Firebase Core
+- Basic C++ and Dart logic 
+
+And a beautiful modern UI i'm very proud of. 
 
 A few resources to get you started if this is your first Flutter project:
 
