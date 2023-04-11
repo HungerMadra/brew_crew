@@ -1,10 +1,16 @@
+import 'package:brew_crew/services/auth.dart';
 import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  SignIn({super.key});
+
+  //Text editing controllers  
+
+final emailController = TextEditingController();
+final passWordController = TextEditingController();
 
   @override
   State<SignIn> createState() => _SignInState();
@@ -12,10 +18,10 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
 
-final userNameController = TextEditingController();
-final passWordController = TextEditingController();
+// Instance of Auth Service 
+final AuthService _auth = AuthService();
 
-  @override
+@override
   Widget build(BuildContext context) {
 
     final Color? backgroundColor = Colors.grey[300]; // Nullable color value
@@ -28,7 +34,7 @@ final passWordController = TextEditingController();
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               
-            const SizedBox(height: 50),
+            //const SizedBox(height: 5),
 
             // logo 
 
@@ -51,7 +57,7 @@ final passWordController = TextEditingController();
             //username field
 
             MyTextField(
-              controller: userNameController,
+              controller: widget.emailController,
               hintText: 'Username',
               obscureText: false,
             ),
@@ -60,7 +66,7 @@ final passWordController = TextEditingController();
             // password
 
             MyTextField(
-              controller: userNameController,
+              controller: widget.passWordController,
               hintText: 'Password',
               obscureText: true,
             ),
@@ -82,7 +88,10 @@ final passWordController = TextEditingController();
             //sign-in
 
             MyButton(
-              onTap: () => null,
+              onTap: () async { 
+              await _auth.signInEmailPass(
+                widget.emailController, widget.passWordController, context);
+              }
             ),
 
             const SizedBox(height: 25),
@@ -148,6 +157,7 @@ final passWordController = TextEditingController();
               ],),
           ],),
         ),
+      
       ),
     );
   }
