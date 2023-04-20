@@ -1,42 +1,51 @@
-import 'package:brew_crew/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
-import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-  final VoidCallback showRegisterPage;
-  SignIn({Key? key, required this.showRegisterPage}) : super(key: key);
+
+class RegisterPage extends StatefulWidget {
+  final VoidCallback showLoginPage;
+  RegisterPage ({Key? key, required this.showLoginPage}) : super(key: key);
 
   //Text editing controllers  
 
 final emailController = TextEditingController();
 final passWordController = TextEditingController();
+final confirmPassWordController = TextEditingController();
 
   @override
-  State<SignIn> createState() => _SignInState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterPageState extends State<RegisterPage> {
 
-// Instance of Auth Service 
-final AuthService _auth = AuthService();
-
-  @override
+    @override
   void dispose() {
     // Call dispose on the text editing controllers
     widget.emailController.dispose();
     widget.passWordController.dispose();
+    widget.confirmPassWordController.dispose();
     super.dispose();
   }
 
-@override
+//confirm password 
+
+  bool passwordConfirmed(){
+    if (widget.confirmPassWordController.text.trim() == widget.passWordController.text.trim()){
+        return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  
+  @override
   Widget build(BuildContext context) {
-
-    final Color? backgroundColor = Colors.grey[300]; // Nullable color value
-
     return Scaffold(
-      backgroundColor: backgroundColor ?? Colors.grey, // Use null-aware cascade operator
+      backgroundColor: Colors.grey.shade300, // Use null-aware cascade operator
       body:  SafeArea(
         child: Center(
           child: Column (
@@ -55,7 +64,7 @@ final AuthService _auth = AuthService();
             //welcome back 
 
             Text(
-              'Welcome back you\'ve been missed!',
+              'Register below with your details!',
               style: TextStyle(
                 color: Colors.grey.shade700,
                 fontSize: 16,
@@ -72,6 +81,7 @@ final AuthService _auth = AuthService();
             ),
               
               const SizedBox(height: 5),
+
             // password
 
             MyTextField(
@@ -80,7 +90,24 @@ final AuthService _auth = AuthService();
               obscureText: true,
             ),
 
-              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              // Confirm password
+
+            MyTextField(
+              controller: widget.confirmPassWordController,
+              hintText: 'Confirm Password',
+              obscureText: true,
+            ),
+
+              const SizedBox(height: 5),
 
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -94,17 +121,45 @@ final AuthService _auth = AuthService();
 
               const SizedBox(height: 25),
 
-            //sign-in
+            //sign-up
+MyButton(
+  text: 'Sign Up',
+  onTap: () async {
+    if (passwordConfirmed()) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: widget.emailController.text.trim(),
+          password: widget.passWordController.text.trim(),
+        );
+        // Show a snackbar or navigate to the home page upon successful sign up
+      } catch (e) {
+        // Handle sign up errors
+        print('Error occurred while signing up: $e');
+      }
+    } else {
+      // Password is not confirmed, show an error message
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Password confirmation error'),
+            content: const Text('The passwords do not match. Please confirm your password.'),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  },
+),
 
-          MyButton(
-          text: 'Sign In',
-            onTap: () async { 
-            await _auth.signInEmailPass(
-             widget.emailController, widget.passWordController, context);
-             },
-                  ),
-
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
               
             //continue with 
 
@@ -138,7 +193,7 @@ final AuthService _auth = AuthService();
               
             //google and apple sign-in buttons
 
-            const Row(
+             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //google button
@@ -150,18 +205,18 @@ final AuthService _auth = AuthService();
                 SquareTile(imagePath: 'lib/images/apple.png'),
               ],),
 
-              //Not a member, Register 
+              //I am a member, Login
 
               const SizedBox(height: 10),
 
               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+              const Text('I am a member?'),
               const SizedBox(width: 10),
-              const Text('Not a member?'),
               GestureDetector(
-                onTap: widget.showRegisterPage,
-                child: const Text(' Register now!',
+                onTap: widget.showLoginPage,
+                child: const Text('Login now!',
                 style: TextStyle(color: Colors.blue, 
                 fontWeight: FontWeight.bold 
                 ),
