@@ -122,44 +122,44 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(height: 25),
 
             //sign-up
-MyButton(
-  text: 'Sign Up',
-  onTap: () async {
-    if (passwordConfirmed()) {
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: widget.emailController.text.trim(),
-          password: widget.passWordController.text.trim(),
-        );
-        // Show a snackbar or navigate to the home page upon successful sign up
-      } catch (e) {
-        // Handle sign up errors
-        print('Error occurred while signing up: $e');
-      }
-    } else {
-      // Password is not confirmed, show an error message
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Password confirmation error'),
-            content: const Text('The passwords do not match. Please confirm your password.'),
-            actions: [
-              TextButton(
-                child: const Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
+              MyButton(
+                text: 'Sign Up',
+                onTap: () async {
+                  if (passwordConfirmed()) {
+                    try {
+                      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: widget.emailController.text.trim(),
+                        password: widget.passWordController.text.trim(),
+                      );
+                      // Show a snackbar or navigate to the home page upon successful sign up
+                    } catch (e) {
+                      // Handle sign up errors
+                      print('Error occurred while signing up: $e');
+                    }
+                  } else {
+                    // Password is not confirmed, show an error message
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Password confirmation error'),
+                          content: const Text('The passwords do not match. Please confirm your password.'),
+                          actions: [
+                            TextButton(
+                              child: const Text('OK'),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
                 },
               ),
-            ],
-          );
-        },
-      );
-    }
-  },
-),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
               
             //continue with 
 

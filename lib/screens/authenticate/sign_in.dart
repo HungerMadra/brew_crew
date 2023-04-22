@@ -3,6 +3,8 @@ import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -13,6 +15,7 @@ class SignIn extends StatefulWidget {
 final emailController = TextEditingController();
 final passWordController = TextEditingController();
 
+
   @override
   State<SignIn> createState() => _SignInState();
 }
@@ -21,6 +24,7 @@ class _SignInState extends State<SignIn> {
 
 // Instance of Auth Service 
 final AuthService _auth = AuthService();
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   void dispose() {
@@ -138,17 +142,32 @@ final AuthService _auth = AuthService();
               
             //google and apple sign-in buttons
 
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //google button
-                SquareTile(imagePath: 'lib/images/google.png'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () async {
+                  try {
+                    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+                    final GoogleSignInAuthentication googleAuth =
+                        await googleUser!.authentication;
 
-                SizedBox(width: 25),
-                
-                //apple button
-                SquareTile(imagePath: 'lib/images/apple.png'),
-              ],),
+                    final AuthCredential credential = GoogleAuthProvider.credential(
+                        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
+                    await FirebaseAuth.instance.signInWithCredential(credential);
+                  } catch (error) {
+                    print(error);
+                  }
+                },
+                child: const SquareTile(imagePath: 'lib/images/google.png'),
+              ),
+              const SizedBox(width: 25),
+              const SquareTile(imagePath: 'lib/images/apple.png'),
+            ],
+              ),
+
+
 
               //Not a member, Register 
 
