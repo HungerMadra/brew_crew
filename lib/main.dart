@@ -11,14 +11,17 @@ void main() async {
 
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Wrapper(),
+      theme: ThemeData(
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[300]),
+      ),
     );
   }
 }

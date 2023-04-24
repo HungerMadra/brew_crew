@@ -51,8 +51,8 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 
             // logo 
 
-              const Icon(Icons.coffee,
-              size: 100,
+              const Icon(Icons.temple_hindu_rounded,
+              size: 50,
               ),
               const SizedBox(height: 25),
               
