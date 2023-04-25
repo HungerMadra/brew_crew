@@ -36,22 +36,55 @@ class _HomeState extends State<Home> {
       body: CustomScrollView(
         slivers: [
           // Add a SliverAppBar widget to the CustomScrollView
-          SliverAppBar.medium(
-            leading: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState!.openDrawer();
-              },
-              icon: const Icon(Icons.menu),
+      SliverAppBar.medium(
+      leading: IconButton(
+        onPressed: () {
+          _scaffoldKey.currentState!.openDrawer();
+        },
+        icon: const Icon(Icons.menu),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Icon(Icons.add_box_rounded),
+          color: Colors.deepPurple,
+        ),
+      ],
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.sports_basketball),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.add_box_rounded),
-                color: Colors.deepPurple,
-              ),
-            ],
-            title: const Text('Medium App Bar'),
           ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.sports_soccer),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.sports_martial_arts),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.sports_football),
+            ),
+          ),
+        ],
+      ),
+    ),
+
 
           // Add a SizedBox widget to create space between the SliverAppBar and SliverToBoxAdapter
           const SliverToBoxAdapter(

@@ -1,3 +1,4 @@
+import 'package:brew_crew/pages/deposit.dart';
 import 'package:brew_crew/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import '../pages/help.dart';
@@ -7,7 +8,6 @@ import '../pages/settings.dart';
 import '../pages/terms.dart';
 import '../pages/withdrawal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../screens/authenticate/authenticate.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -28,15 +28,42 @@ class MyDrawer extends StatelessWidget {
         color: Colors.deepPurple,
         child: ListView(
           children: [
-            const DrawerHeader(
-              //To do: Change this Child text widget to a row or column widget that will hold credit amount and deposit button 
-              child: Center(
-                child: Text(
-                  'L O G O',
-                  style: TextStyle(fontSize: 35),
+            DrawerHeader(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'CREDIT',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amberAccent,
+                  ),
                 ),
-              ),
+                const Text(
+                  '\$0.00',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Deposit(),
+                ));
+                  },
+                  style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                ),
+                  child: const Text('Deposit'),
+                ),
+              ],
             ),
+          ),
+
             // List of clickable links 
             ListTile(
               leading: const Icon(Icons.monetization_on_outlined),

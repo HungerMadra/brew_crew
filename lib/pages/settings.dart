@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/home/home.dart';
 import '../services/drawer.dart';
 
 class Settings extends StatelessWidget {
@@ -22,9 +23,11 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
               onPressed: () {
-                _scaffoldKey.currentState!.openDrawer();
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Home(),
+                ));
               },
-              icon: const Icon(Icons.menu),
+              icon: const Icon(Icons.arrow_back_ios_new),
             ),
             actions: [
               IconButton(

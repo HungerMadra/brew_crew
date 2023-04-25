@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../screens/home/home.dart';
 import '../services/drawer.dart';
 
-class Help extends StatelessWidget {
-  Help({Key? key}) : super(key: key);
+class Deposit extends StatelessWidget {
+  Deposit({Key? key}) : super(key: key);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<ScaffoldState> _logoutScaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,12 +35,12 @@ class Help extends StatelessWidget {
             color: Colors.deepPurple,
           ),
         ],
-        title: const Text('Help & FAQs'),
+        title: const Text('Deposit Funds'),
         centerTitle: true,
       ),
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: Colors.pinkAccent,
       body: const Center(
-        child: Text('H E L P & F A Q S'),
+        child: Text('D E P O S I T - F U N D S'),
       ),
     );
   }
