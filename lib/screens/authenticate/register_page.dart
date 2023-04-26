@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
@@ -134,7 +135,9 @@ class _RegisterPageState extends State<RegisterPage> {
                       // Show a snackbar or navigate to the home page upon successful sign up
                     } catch (e) {
                       // Handle sign up errors
-                      print('Error occurred while signing up: $e');
+                      if (kDebugMode) {
+                        print('Error occurred while signing up: $e');
+                      }
                     }
                   } else {
                     // Password is not confirmed, show an error message

@@ -2,6 +2,7 @@ import 'package:brew_crew/services/auth.dart';
 import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -157,7 +158,9 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 
                     await FirebaseAuth.instance.signInWithCredential(credential);
                   } catch (error) {
-                    print(error);
+                    if (kDebugMode) {
+                      print(error);
+                    }
                   }
                 },
                 child: const SquareTile(imagePath: 'lib/images/google.png'),

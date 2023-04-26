@@ -1,5 +1,6 @@
 import 'package:brew_crew/pages/deposit.dart';
 import 'package:brew_crew/screens/wrapper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../pages/help.dart';
 import '../pages/history.dart';
@@ -152,7 +153,9 @@ class MyDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Wrapper()),
                 ); // Navigate to the Authenticate screen
               } catch (e) {
-                print('Error logging out: $e');
+                if (kDebugMode) {
+                  print('Error logging out: $e');
+                }
                 // Display an error message to the user or handle the error in another way.
               }
             },
