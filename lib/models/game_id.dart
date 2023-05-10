@@ -12,3 +12,16 @@ class GameID {
     required this.away_team,
   });
 }
+
+class MarketNames {
+  final String name;
+
+  MarketNames({required this.name});
+
+  @override
+  String toString() {
+    return 'MarketNames(name: $name)';
+  }
+}
+
+

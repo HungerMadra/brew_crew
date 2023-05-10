@@ -22,10 +22,44 @@ class _HomeState extends State<Home> {
 
   // Create List to hold games
   List<GameID> games = [];
+  List<String> idList = [];
+  List<MarketNames> marketList = [];
+
+  // Add a variable to hold the future result of getNbaGames()
+  late Future<void> getNbaGamesFuture;
+
+    @override
+  void initState() {
+    super.initState();
+  // Call getNbaGames method when the widget is initialized
+    getNbaGamesFuture = getNbaGames();
+  }
+
+ // Get NBA Markets
+  Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
+  for (var id in gameId) {
+
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var jsonData = jsonDecode(response.body);
+
+
+      for (var marketNames in jsonData['markets']){
+        MarketNames newName = MarketNames(
+          name: marketNames['name']);
+          marketList.add(newName);
+      }
+ }
+      if (kDebugMode) {
+      print(gameId.length);
+      print(marketList.length); 
+      print(marketList);
+    }
+    return marketList;
+}
 
   // Get NBA Games
   Future<void> getNbaGames() async {
-    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-04-25', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-04-26', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
     for (var game in jsonData['games']) {
       GameID newGame = GameID(
@@ -33,11 +67,20 @@ class _HomeState extends State<Home> {
         home_team: game['home_team'],
         away_team: game['away_team'],
       );
+
+  // Adds GameId's To A List   
+      idList.add(newGame.game_id);
+
+  // Adds Games To A List    
       games.add(newGame);
-    }
-    if (kDebugMode) {
-      print(games.length);
-    }
+    }  
+
+  // Call getMarkets as an async Function  
+    List<MarketNames> populatedMarkets = await getMarkets(idList);
+  setState(() {
+    marketList = populatedMarkets;
+  });
+
   }
 
 
@@ -104,36 +147,39 @@ Widget build(BuildContext context) {
           ),
         ),
 
-          SliverToBoxAdapter(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FutureBuilder(
-                    future: getNbaGames(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: games.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(games[index].home_team),
-                              subtitle: Text(games[index].away_team),
-                            );
-                          },
-                        );
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                ],
+             SliverToBoxAdapter(
+              child: FutureBuilder(
+                future: getNbaGamesFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (marketList.isEmpty) {
+                      return const Center(child: Text('No markets available'));
+                    } else {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: marketList.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(marketList[index].name),
+                                const Divider(),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
             ),
-          ),
-      ],
-    ),
-  );
-}
-}
+            ],
+            ),
+            );
+            }
+            }
