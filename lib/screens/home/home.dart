@@ -15,6 +15,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+//Inititalize firebaseAuth Instance
 class _HomeState extends State<Home> {
   final user = FirebaseAuth.instance.currentUser!;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,25 +36,32 @@ class _HomeState extends State<Home> {
     getNbaGamesFuture = getNbaGames();
   }
 
- // Get NBA Markets
+ // Get NBA Markets Method
   Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
+
+    //Loop Through All The Game Id's In The List Of gameId
   for (var id in gameId) {
 
+    //For each id get the api json market data associated with it 
     var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
 
-
+    //Loop throught the data and add the market names to a list 
       for (var marketNames in jsonData['markets']){
         MarketNames newName = MarketNames(
           name: marketNames['name']);
           marketList.add(newName);
       }
  }
+
+    //Print Data For Error Detection 
       if (kDebugMode) {
       print(gameId.length);
       print(marketList.length); 
       print(marketList);
     }
+
+    //Return List With Market Data 
     return marketList;
 }
 
@@ -83,7 +91,7 @@ class _HomeState extends State<Home> {
 
   }
 
-
+// Build App
 @override
 Widget build(BuildContext context) {
   return Scaffold(
@@ -91,6 +99,7 @@ Widget build(BuildContext context) {
 
     key: _scaffoldKey,
 
+    // Drawer widget for displaying a side navigation menu
     drawer: MyDrawer(
       scaffoldKey: _scaffoldKey,
       logoutScaffoldKey: _logoutScaffoldKey,
@@ -99,6 +108,7 @@ Widget build(BuildContext context) {
     body: CustomScrollView(
       slivers: [
         SliverAppBar.medium(
+          // IconButton in the leading position to open the drawer
           leading: IconButton(
             onPressed: () {
               _scaffoldKey.currentState!.openDrawer();
@@ -106,6 +116,7 @@ Widget build(BuildContext context) {
             icon: const Icon(Icons.menu),
           ),
           actions: [
+            // IconButton in the trailing position
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.add_box_rounded),
@@ -115,6 +126,7 @@ Widget build(BuildContext context) {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // IconButton for sports category
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: IconButton(
@@ -147,39 +159,43 @@ Widget build(BuildContext context) {
           ),
         ),
 
-             SliverToBoxAdapter(
-              child: FutureBuilder(
-                future: getNbaGamesFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (marketList.isEmpty) {
-                      return const Center(child: Text('No markets available'));
-                    } else {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: marketList.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(marketList[index].name),
-                                const Divider(),
-                              ],
-                            ),
-                          );
-                        },
+        // SliverToBoxAdapter for displaying a single non-scrollable box child
+        SliverToBoxAdapter(
+          child: FutureBuilder(
+            future: getNbaGamesFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (marketList.isEmpty) {
+                  // Display a message when no markets are available
+                  return const Center(child: Text('No markets available'));
+                } else {
+                  // ListView.builder for displaying a list of markets
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    itemCount: marketList.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(marketList[index].name),
+                            const Divider(),
+                          ],
+                        ),
                       );
-                    }
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-            ),
-            ],
-            ),
-            );
-            }
-            }
+                    },
+                  );
+                }
+              } else {
+                // Display a loading indicator while waiting for the future to complete
+                return const Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
