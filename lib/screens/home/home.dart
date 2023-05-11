@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
   List<GameID> games = [];
   List<String> idList = [];
   List<MarketNames> marketList = [];
+  List<Map<String, dynamic>> oddsList = []; // Initialize oddsList as an empty list
 
   // Add a variable to hold the future result of getNbaGames()
   late Future<void> getNbaGamesFuture;
@@ -39,35 +40,60 @@ class _HomeState extends State<Home> {
  // Get NBA Markets Method
   Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
 
-    //Loop Through All The Game Id's In The List Of gameId
+    // Loop Through All The Game Id's In The List Of gameId
   for (var id in gameId) {
-
-    //For each id get the api json market data associated with it 
+    // For each id, get the JSON market data associated with it
     var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
+    print (jsonData);
 
-    //Loop throught the data and add the market names to a list 
-      for (var marketNames in jsonData['markets']){
-        MarketNames newName = MarketNames(
-          name: marketNames['name']);
-          marketList.add(newName);
+    // Loop through the data and add the market names to the list
+    for (var marketNames in jsonData['markets']) {
+      MarketNames newName = MarketNames(name: marketNames['name']);
+      marketList.add(newName);
+
+      // Make a call for each market name to the API endpoint for the odds
+      var market = marketNames['name'];
+      var oddsResponse = await http.get(Uri.https('api.prop-odds.com', '/beta/odds/$id/$market', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+      var oddsJsonData = jsonDecode(oddsResponse.body);
+    print (oddsJsonData);
+
+      // Process the odds data and add it to the oddsList
+      var outcomes = oddsJsonData['sportsbooks'][0]['market']['outcomes'];
+      for (var outcome in outcomes) {
+        var timestamp = outcome['timestamp'];
+        var handicap = outcome['handicap'];
+        var odds = outcome['odds'];
+        var name = outcome['name'];
+        var description = outcome['description'];
+
+        oddsList.add({
+          'timestamp': timestamp,
+          'handicap': handicap,
+          'odds': odds,
+          'name': name,
+          'description': description,
+        });
       }
- }
-
-    //Print Data For Error Detection 
-      if (kDebugMode) {
-      print(gameId.length);
-      print(marketList.length); 
-      print(marketList);
     }
+  }
 
-    //Return List With Market Data 
-    return marketList;
+  // Print data for error detection
+  if (kDebugMode) {
+    print(gameId.length);
+    print(marketList.length);
+    print(marketList);
+    print(oddsList.length);
+    print(oddsList);
+  }
+
+  // Return list with market data
+  return marketList;
 }
 
   // Get NBA Games
   Future<void> getNbaGames() async {
-    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-04-26', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-05-10', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
     for (var game in jsonData['games']) {
       GameID newGame = GameID(
@@ -198,4 +224,4 @@ Widget build(BuildContext context) {
     ),
   );
 }
-
+}
