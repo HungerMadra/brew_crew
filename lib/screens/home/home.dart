@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
   List<GameID> games = [];
   List<String> idList = [];
   List<MarketNames> marketList = [];
-  List<Map<String, dynamic>> oddsList = []; // Initialize oddsList as an empty list
 
   // Add a variable to hold the future result of getNbaGames()
   late Future<void> getNbaGamesFuture;
@@ -37,43 +36,55 @@ class _HomeState extends State<Home> {
     getNbaGamesFuture = getNbaGames();
   }
 
- // Get NBA Markets Method
-  Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
-
-    // Loop Through All The Game Id's In The List Of gameId
+Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
   for (var id in gameId) {
-    // For each id, get the JSON market data associated with it
+    // Get the JSON market data for the current game ID
     var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
-    print (jsonData);
 
-    // Loop through the data and add the market names to the list
     for (var marketNames in jsonData['markets']) {
-      MarketNames newName = MarketNames(name: marketNames['name']);
-      marketList.add(newName);
+      String marketName = marketNames['name'];
 
-      // Make a call for each market name to the API endpoint for the odds
-      var market = marketNames['name'];
-      var oddsResponse = await http.get(Uri.https('api.prop-odds.com', '/beta/odds/$id/$market', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
-      var oddsJsonData = jsonDecode(oddsResponse.body);
-    print (oddsJsonData);
+      // Check if the market name is in the desired list
+      if ([            
+            'player_assists_over_under',
+            'player_assists_points_over_under',
+            'player_assists_points_rebounds_over_under',
+            'player_assists_rebounds_over_under',
+            'player_blocks_over_under',
+            'player_blocks_steals_over_under',
+            'player_points_over_under',
+            'player_points_rebounds_over_under',
+            'player_rebounds_over_under',
+            'player_steals_over_under',
+            'player_threes_over_under',
+            'player_turnovers_over_under',
+          ].contains(marketName)) {
+        
+                // Make a call to the API endpoint for the odds for the current market name
+        var oddsResponse = await http.get(Uri.https('api.prop-odds.com', '/beta/odds/$id/$marketName', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+        var oddsJsonData = jsonDecode(oddsResponse.body);
 
-      // Process the odds data and add it to the oddsList
-      var outcomes = oddsJsonData['sportsbooks'][0]['market']['outcomes'];
-      for (var outcome in outcomes) {
-        var timestamp = outcome['timestamp'];
-        var handicap = outcome['handicap'];
-        var odds = outcome['odds'];
-        var name = outcome['name'];
-        var description = outcome['description'];
 
-        oddsList.add({
-          'timestamp': timestamp,
-          'handicap': handicap,
-          'odds': odds,
-          'name': name,
-          'description': description,
-        });
+        // Process the odds data and add `it to the oddsList
+        var outcomes = oddsJsonData['sportsbooks'][0]['market']['outcomes'];
+        for (var outcome in outcomes) {
+          var timestamp = outcome['timestamp'];
+          var handicap = outcome['handicap'];
+          var odds = outcome['odds'];
+          var name = outcome['name'];
+          var description = outcome['description'];
+
+          var market = MarketNames(
+            timestamp: timestamp,
+            handicap: handicap,
+            odds: odds,
+            name: name,
+            description: description,
+          );
+
+           marketList.add(market);
+        }
       }
     }
   }
@@ -81,15 +92,14 @@ class _HomeState extends State<Home> {
   // Print data for error detection
   if (kDebugMode) {
     print(gameId.length);
-    print(marketList.length);
     print(marketList);
-    print(oddsList.length);
-    print(oddsList);
   }
 
-  // Return list with market data
+  // Return the list with market data
   return marketList;
 }
+
+
 
   // Get NBA Games
   Future<void> getNbaGames() async {
@@ -186,35 +196,29 @@ Widget build(BuildContext context) {
         ),
 
         // SliverToBoxAdapter for displaying a single non-scrollable box child
-        SliverToBoxAdapter(
+ SliverToBoxAdapter(
           child: FutureBuilder(
             future: getNbaGamesFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (marketList.isEmpty) {
-                  // Display a message when no markets are available
                   return const Center(child: Text('No markets available'));
                 } else {
-                  // ListView.builder for displaying a list of markets
-                  return ListView.builder(
+                  return ListView.separated(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     itemCount: marketList.length,
+                    separatorBuilder: (context, index) => const Divider(),
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(marketList[index].name),
-                            const Divider(),
-                          ],
+                      return Card(
+                        child: ListTile(
+                          title: Text(marketList[index].description),
                         ),
                       );
                     },
                   );
                 }
               } else {
-                // Display a loading indicator while waiting for the future to complete
                 return const Center(child: CircularProgressIndicator());
               }
             },

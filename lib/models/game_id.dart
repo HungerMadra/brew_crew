@@ -14,14 +14,27 @@ class GameID {
 }
 
 class MarketNames {
+  final String timestamp;
+  final double handicap;
+  final int odds;
   final String name;
+  final String description;
 
-  MarketNames({required this.name});
+  MarketNames({
+    required this.timestamp,
+    required this.handicap,
+    required this.odds,
+    required this.name,
+    required this.description,
+  });
 
   @override
   String toString() {
-    return 'MarketNames(name: $name)';
+    return 'MarketNames(timestamp: $timestamp, handicap: $handicap, odds: $odds, name: $name, description: $description)';
   }
 }
+
+
+
 
 
