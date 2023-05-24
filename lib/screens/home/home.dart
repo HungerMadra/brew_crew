@@ -196,36 +196,57 @@ Widget build(BuildContext context) {
         ),
 
         // SliverToBoxAdapter for displaying a single non-scrollable box child
- SliverToBoxAdapter(
-          child: FutureBuilder(
-            future: getNbaGamesFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (marketList.isEmpty) {
-                  return const Center(child: Text('No markets available'));
-                } else {
-                  return ListView.separated(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: marketList.length,
-                    separatorBuilder: (context, index) => const Divider(),
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: ListTile(
-                          title: Text(marketList[index].description),
-                        ),
-                      );
-                    },
-                  );
-                }
-              } else {
-                return const Center(child: CircularProgressIndicator());
-              }
-            },
-          ),
-        ),
-      ],
-    ),
-  );
-}
-}
+            SliverToBoxAdapter(
+                      child: FutureBuilder(
+                        future: getNbaGamesFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            if (marketList.isEmpty) {
+                              return const Center(child: Text('No markets available'));
+                            } else {
+                              return ListView.separated(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemCount: marketList.length,
+                                separatorBuilder: (context, index) => const Divider(),
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        //Darker Shadow On Bottom Right
+                                        BoxShadow(
+                                          color: Colors.grey.shade500,
+                                          offset: const Offset(6, 6),
+                                          blurRadius: 15,
+                                          spreadRadius: 1,
+                                        ),
+
+                                        //Lighter Shadow On Top Left
+                                        const BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(-6, -6),
+                                          blurRadius: 15,
+                                          spreadRadius: 1,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Card(
+                                      child: ListTile(
+                                        title: Text(marketList[index].description),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                          } else {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
+            }
