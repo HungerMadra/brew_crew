@@ -4,6 +4,7 @@ import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -52,19 +53,21 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 
             // logo 
 
-              const Icon(Icons.temple_hindu_rounded,
-              size: 50,
-              ),
+              Image.asset(
+            'lib/images/logo.png', // Replace with your actual image asset path
+            width: 75,
+            height: 75,
+          ),
               const SizedBox(height: 25),
               
             //welcome back 
 
             Text(
               'Welcome back you\'ve been missed!',
-              style: TextStyle(
+              style: GoogleFonts.bebasNeue(
                 color: Colors.grey.shade700,
                 fontSize: 16,
-                ),
+              ),
                 ),
                 const SizedBox(height: 25),
               
@@ -76,7 +79,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
               obscureText: false,
             ),
               
-              const SizedBox(height: 5),
+              const SizedBox(height: 15),
             // password
 
             MyTextField(
@@ -87,12 +90,18 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 
               const SizedBox(height: 10),
 
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forgot Password?'),
+                    Text('Forgot Password?',
+                    style: GoogleFonts.bebasNeue(
+                color: Colors.grey.shade700,
+                fontSize: 16,
+              ),
+              ),
+                    
                   ],
                 ),
               ),
@@ -125,8 +134,10 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text('Or continue with',
-                    style: TextStyle(color: Colors.grey.shade700),
+                    child: Text('Or continue with',style: GoogleFonts.bebasNeue(
+                color: Colors.grey.shade700,
+                fontSize: 16,
+              ),
                     ),
                   ),
             
@@ -180,16 +191,23 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               const SizedBox(width: 10),
-              const Text('Not a member?'),
+               Text('Not a member?',
+              style: GoogleFonts.bebasNeue(
+                color: Colors.grey.shade700,
+                fontSize: 16,
+              ),
+              ),
               GestureDetector(
                 onTap: widget.showRegisterPage,
-                child: const Text(' Register now!',
-                style: TextStyle(color: Colors.blue, 
-                fontWeight: FontWeight.bold 
-                ),
+                child: Text(' Register now!',
+                style: GoogleFonts.bebasNeue(
+                color: Colors.grey.shade700,
+                fontSize: 16,
+              ),
                 ),
               ),
-              ],),
+              ],
+              ),
           ],),
         ),
       
