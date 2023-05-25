@@ -49,7 +49,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               
-            //const SizedBox(height: 5),
+           const SizedBox(height: 10),
 
             // logo 
 
@@ -63,7 +63,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             //welcome back 
 
             Text(
-              'Welcome back you\'ve been missed!',
+              'Welcome back, you\'ve been missed!',
               style: GoogleFonts.bebasNeue(
                 color: Colors.grey.shade700,
                 fontSize: 16,
@@ -97,7 +97,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                   children: [
                     Text('Forgot Password?',
                     style: GoogleFonts.bebasNeue(
-                color: Colors.grey.shade700,
+                color: Colors.blue,
                 fontSize: 16,
               ),
               ),
@@ -106,7 +106,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                 ),
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
 
             //sign-in
 
@@ -118,7 +118,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
              },
                   ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 15),
               
             //continue with 
 
@@ -128,7 +128,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                 children: [
                   Expanded(
                     child: Divider(
-                    thickness: 0.5, color: Colors.grey.shade400,
+                    thickness: 0.5, color: Colors.grey.shade900,
                     ),
                   ),
             
@@ -143,14 +143,14 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             
                   Expanded(
                     child: Divider(
-                    thickness: 0.5, color: Colors.grey.shade400,
+                    thickness: 0.5, color: Colors.grey.shade900,
                     ),
                   ),
                 ],
               ),
             ),
 
-            const SizedBox(height: 5),
+            const SizedBox(height: 20),
               
             //google and apple sign-in buttons
 
@@ -181,32 +181,33 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             ],
               ),
 
-
-
+              const SizedBox(height:5),
+            
               //Not a member, Register 
 
-              const SizedBox(height: 10),
-
-              Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-              const SizedBox(width: 10),
-               Text('Not a member?',
-              style: GoogleFonts.bebasNeue(
-                color: Colors.grey.shade700,
-                fontSize: 16,
-              ),
-              ),
-              GestureDetector(
-                onTap: widget.showRegisterPage,
-                child: Text(' Register now!',
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                const SizedBox(width: 10),
+                 Text('Not a member?',
                 style: GoogleFonts.bebasNeue(
-                color: Colors.grey.shade700,
-                fontSize: 16,
-              ),
+                  color: Colors.grey.shade700,
+                  fontSize: 16,
                 ),
-              ),
-              ],
+                ),
+                GestureDetector(
+                  onTap: widget.showRegisterPage,
+                  child: Text(' Register now!',
+                  style: GoogleFonts.bebasNeue(
+                  color: Colors.blue,
+                  fontSize: 16,
+                ),
+                  ),
+                ),
+                ],
+                ),
               ),
           ],),
         ),

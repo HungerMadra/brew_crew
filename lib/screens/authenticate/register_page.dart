@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:brew_crew/services/my_buttons.dart';
 import 'package:brew_crew/services/square_tile.dart';
 import 'package:brew_crew/services/text_fields.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class RegisterPage extends StatefulWidget {
@@ -57,21 +58,23 @@ class _RegisterPageState extends State<RegisterPage> {
 
             // logo 
 
-              const Icon(Icons.temple_hindu_rounded,
-              size: 50,
-              ),
+              Image.asset(
+            'lib/images/logo.png', // Replace with your actual image asset path
+            width: 75,
+            height: 75,
+          ),
               const SizedBox(height: 25),
               
             //welcome back 
 
             Text(
               'Register below with your details!',
-              style: TextStyle(
+              style: GoogleFonts.bebasNeue(
                 color: Colors.grey.shade700,
                 fontSize: 16,
+              ),
                 ),
-                ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 10),
               
             //username field
 
@@ -110,17 +113,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 5),
 
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Forgot Password?'),
+                    Text('Forgot Password?',
+                    style: GoogleFonts.bebasNeue(
+                color: Colors.blue,
+                fontSize: 16,
+              ),
+                    ),
                   ],
                 ),
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 10),
 
             //sign-up
               MyButton(
@@ -162,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
 
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
               
             //continue with 
 
@@ -172,20 +180,23 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   Expanded(
                     child: Divider(
-                    thickness: 0.5, color: Colors.grey.shade400,
+                    thickness: 0.5, color: Colors.grey.shade900,
                     ),
                   ),
             
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text('Or continue with',
-                    style: TextStyle(color: Colors.grey.shade700),
+                    style: GoogleFonts.bebasNeue(
+                    color: Colors.grey.shade700,
+                    fontSize: 16,
+                 ),
                     ),
                   ),
             
                   Expanded(
                     child: Divider(
-                    thickness: 0.5, color: Colors.grey.shade400,
+                    thickness: 0.5, color: Colors.grey.shade900,
                     ),
                   ),
                 ],
@@ -210,19 +221,25 @@ class _RegisterPageState extends State<RegisterPage> {
 
               //I am a member, Login
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 30),
 
               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              const Text('I am a member?'),
+              Text('I am a member?',
+              style: GoogleFonts.bebasNeue(
+                color: Colors.grey.shade700,
+                fontSize: 16,
+              ),
+              ),
               const SizedBox(width: 10),
               GestureDetector(
                 onTap: widget.showLoginPage,
-                child: const Text('Login now!',
-                style: TextStyle(color: Colors.blue, 
-                fontWeight: FontWeight.bold 
-                ),
+                child: Text('Login now!',
+                style: GoogleFonts.bebasNeue(
+                color: Colors.blue,
+                fontSize: 16,
+              ),
                 ),
               ),
               ],),
