@@ -64,7 +64,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
 
             Text(
               'Welcome back, you\'ve been missed!',
-              style: GoogleFonts.bebasNeue(
+              style: GoogleFonts.oswald(
                 color: Colors.grey.shade700,
                 fontSize: 16,
               ),
@@ -96,7 +96,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text('Forgot Password?',
-                    style: GoogleFonts.bebasNeue(
+                    style: GoogleFonts.oswald(
                 color: Colors.blue,
                 fontSize: 16,
               ),
@@ -111,14 +111,14 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             //sign-in
 
           MyButton(
-          text: 'Sign In',
+          text: 'SIGN IN',
             onTap: () async { 
             await _auth.signInEmailPass(
              widget.emailController, widget.passWordController, context);
              },
                   ),
 
-            const SizedBox(height: 15),
+            const SizedBox(height: 10),
               
             //continue with 
 
@@ -134,7 +134,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
             
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text('Or continue with',style: GoogleFonts.bebasNeue(
+                    child: Text('Or continue with',style: GoogleFonts.oswald(
                 color: Colors.grey.shade700,
                 fontSize: 16,
               ),
@@ -192,7 +192,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                 children: [
                 const SizedBox(width: 10),
                  Text('Not a member?',
-                style: GoogleFonts.bebasNeue(
+                style: GoogleFonts.oswald(
                   color: Colors.grey.shade700,
                   fontSize: 16,
                 ),
@@ -200,7 +200,7 @@ final GoogleSignIn _googleSignIn = GoogleSignIn();
                 GestureDetector(
                   onTap: widget.showRegisterPage,
                   child: Text(' Register now!',
-                  style: GoogleFonts.bebasNeue(
+                  style: GoogleFonts.oswald(
                   color: Colors.blue,
                   fontSize: 16,
                 ),

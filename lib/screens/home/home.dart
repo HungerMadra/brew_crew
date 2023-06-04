@@ -103,7 +103,7 @@ Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
 
   // Get NBA Games
   Future<void> getNbaGames() async {
-    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-05-10', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-05-29', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
     for (var game in jsonData['games']) {
       GameID newGame = GameID(

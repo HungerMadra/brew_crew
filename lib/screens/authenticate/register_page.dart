@@ -69,7 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
             Text(
               'Register below with your details!',
-              style: GoogleFonts.bebasNeue(
+              style: GoogleFonts.oswald(
                 color: Colors.grey.shade700,
                 fontSize: 16,
               ),
@@ -111,24 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: true,
             ),
 
-              const SizedBox(height: 5),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text('Forgot Password?',
-                    style: GoogleFonts.bebasNeue(
-                color: Colors.blue,
-                fontSize: 16,
-              ),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 10),
+            const SizedBox(height: 30),
 
             //sign-up
               MyButton(
@@ -187,7 +170,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text('Or continue with',
-                    style: GoogleFonts.bebasNeue(
+                    style: GoogleFonts.oswald(
                     color: Colors.grey.shade700,
                     fontSize: 16,
                  ),
@@ -226,8 +209,8 @@ class _RegisterPageState extends State<RegisterPage> {
               Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              Text('I am a member?',
-              style: GoogleFonts.bebasNeue(
+              Text('Created an account?',
+              style: GoogleFonts.oswald(
                 color: Colors.grey.shade700,
                 fontSize: 16,
               ),
@@ -236,7 +219,7 @@ class _RegisterPageState extends State<RegisterPage> {
               GestureDetector(
                 onTap: widget.showLoginPage,
                 child: Text('Login now!',
-                style: GoogleFonts.bebasNeue(
+                style: GoogleFonts.oswald(
                 color: Colors.blue,
                 fontSize: 16,
               ),

@@ -4,11 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 class MyButton extends StatelessWidget {
   final String text;
   final Function()? onTap;
-  
+  final double fontSize;
+  final Color color;
+  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry margin;
+
+
   const MyButton({
     Key? key,
     required this.text,
     required this.onTap,
+    this.fontSize = 25,
+    this.color = Colors.black,
+    this.padding = const EdgeInsets.all(15),
+    this.margin = const EdgeInsets.symmetric(horizontal: 25),
   }) : super(key: key);
 
   @override
@@ -16,8 +25,8 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(15),
-        margin: const EdgeInsets.symmetric(horizontal: 25),
+        padding: padding,
+        margin: margin,
         decoration: BoxDecoration(
           color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(12),
@@ -43,8 +52,10 @@ class MyButton extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: GoogleFonts.bebasNeue(
-              fontSize: 25,
+            style: GoogleFonts.oswald(
+              fontSize: fontSize,
+              //fontWeight: FontWeight.bold,
+              color: color,
             ),
           ),
         ),

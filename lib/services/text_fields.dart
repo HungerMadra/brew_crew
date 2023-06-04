@@ -39,7 +39,7 @@ class MyTextField extends StatelessWidget {
         child: TextField(
                 controller: controller,
                 obscureText:obscureText,
-                style: GoogleFonts.bebasNeue(
+                style: GoogleFonts.oswald(
                 color: Colors.grey.shade700,
                 fontSize: 16,
               ),
