@@ -155,7 +155,9 @@ Widget build(BuildContext context) {
             // IconButton in the trailing position
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.add_box_rounded),
+              icon: const Icon(Icons.add_box_rounded,
+              size:40,
+              ),
               color: Colors.deepPurple,
             ),
           ],
@@ -164,28 +166,28 @@ Widget build(BuildContext context) {
             children: [
               // IconButton for sports category
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(9.0),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_basketball),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(9.0),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_soccer),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(9.0),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_martial_arts),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(9.0),
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_football),

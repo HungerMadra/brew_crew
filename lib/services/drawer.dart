@@ -2,6 +2,7 @@ import 'package:brew_crew/pages/deposit.dart';
 import 'package:brew_crew/screens/wrapper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../pages/help.dart';
 import '../pages/history.dart';
 import '../pages/privacy.dart';
@@ -9,7 +10,6 @@ import '../pages/settings.dart';
 import '../pages/terms.dart';
 import '../pages/withdrawal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'my_buttons.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -35,22 +35,24 @@ class MyDrawer extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   'CREDIT',
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: GoogleFonts.oswald(
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
-                const Text(
+
+                Text(
                   '\$0.00',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.oswald(
+                    fontSize: 28,
                     color: Colors.black,
                   ),
                 ),
+
+                const SizedBox(height: 15),
 
                 MyButton(
                   text: 'DEPOSIT',
@@ -59,6 +61,7 @@ class MyDrawer extends StatelessWidget {
                       builder: (context) => Deposit(),
                     ));
                   },
+
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.symmetric(horizontal: 60),
                   fontSize: 20,
@@ -75,9 +78,12 @@ class MyDrawer extends StatelessWidget {
               children: [
               ListTile(
                 leading: const Icon(Icons.monetization_on_outlined),
-                title: const Text(
+                title: Text(
                   'Request Withdrawal',
-                  style: TextStyle(fontSize: 20),
+                  style: GoogleFonts.oswald(
+                    fontSize: 20,
+                    color: Colors.black,
+                  ),
                 ),
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -89,9 +95,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.history),
-            title: const Text(
+            title: Text(
               'Transaction History',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -102,9 +111,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.privacy_tip_outlined),
-            title: const Text(
+            title: Text(
               'Privacy Policy',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -115,9 +127,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.handshake_outlined),
-            title: const Text(
+            title: Text(
               'Terms & Conditions',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -128,9 +143,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.person_2_outlined),
-            title: const Text(
+            title: Text(
               'Profile Settings',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -141,9 +159,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.help_outline_outlined),
-            title: const Text(
+            title: Text(
               'Help & FAQ',
-              style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -154,9 +175,12 @@ class MyDrawer extends StatelessWidget {
             const SizedBox(height: 10),
            ListTile(
             leading: const Icon(Icons.logout_rounded),
-            title: const Text(
+            title: Text(
             'Logout',
-            style: TextStyle(fontSize: 20),
+              style: GoogleFonts.oswald(
+                fontSize: 20,
+                color: Colors.black,
+              ),
             ),
             onTap: () async {
             try {
