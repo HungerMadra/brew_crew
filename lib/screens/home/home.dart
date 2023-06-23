@@ -150,6 +150,7 @@ Widget build(BuildContext context) {
               _scaffoldKey.currentState!.openDrawer();
             },
             icon: const Icon(Icons.menu),
+            color: Colors.deepPurple,
           ),
           actions: [
             // IconButton in the trailing position
@@ -170,6 +171,7 @@ Widget build(BuildContext context) {
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_basketball),
+                  color: Colors.deepPurple,
                 ),
               ),
               Padding(
@@ -177,6 +179,7 @@ Widget build(BuildContext context) {
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_soccer),
+                  color: Colors.deepPurple,
                 ),
               ),
               Padding(
@@ -184,6 +187,7 @@ Widget build(BuildContext context) {
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_martial_arts),
+                  color: Colors.deepPurple,
                 ),
               ),
               Padding(
@@ -191,6 +195,7 @@ Widget build(BuildContext context) {
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.sports_football),
+                  color: Colors.deepPurple,
                 ),
               ),
             ],

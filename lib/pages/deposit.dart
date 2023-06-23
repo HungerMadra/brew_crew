@@ -27,6 +27,7 @@ class Deposit extends StatelessWidget {
                 ));
           },
           icon: const Icon(Icons.arrow_back_ios_new),
+          color: Colors.deepPurple,
         ),
         actions: [
           IconButton(
