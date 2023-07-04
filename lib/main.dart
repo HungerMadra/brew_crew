@@ -1,8 +1,6 @@
-import 'package:brew_crew/pages/withdrawal.dart';
 import 'package:brew_crew/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:brew_crew/pages/history.dart';
 
 
 void main() async {
@@ -19,9 +17,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      //home: Wrapper(),
-      home: History(),
-      //home: Withdraw(),
+      home: Wrapper(),
+      //home: Terms(),
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(backgroundColor: Colors.grey[300]),

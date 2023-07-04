@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-//Inititalize firebaseAuth Instance
+//Initialize firebaseAuth Instance
 class _HomeState extends State<Home> {
   final user = FirebaseAuth.instance.currentUser!;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
 Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
   for (var id in gameId) {
     // Get the JSON market data for the current game ID
-    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id', {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/markets/$id',  {'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
 
     for (var marketNames in jsonData['markets']) {
@@ -103,7 +103,7 @@ Future<List<MarketNames>> getMarkets(List<dynamic> gameId) async {
 
   // Get NBA Games
   Future<void> getNbaGames() async {
-    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-05-29', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
+    var response = await http.get(Uri.https('api.prop-odds.com', '/beta/games/nba', {'date': '2023-06-12', 'tz': 'America/New_York', 'api_key': 'hcvcwkpjlH2kRctVqMLZUZYfJZBJBqRyB4hTI1t4c'}));
     var jsonData = jsonDecode(response.body);
     for (var game in jsonData['games']) {
       GameID newGame = GameID(

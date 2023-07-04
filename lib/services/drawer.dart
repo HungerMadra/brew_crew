@@ -24,6 +24,49 @@ class MyDrawer extends StatelessWidget {
     required this.logoutScaffoldKey, // <-- add this line
   }) : super(key: key);
 
+  void _showPrivacyPolicy(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Privacy Policy',
+            style: GoogleFonts.oswald(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 600, // Set a maximum height for the content
+                maxWidth: 100, // Set a maximum width for the content
+              ),
+              child: Privacy(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text(
+                'Accept',
+                style: GoogleFonts.oswald(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -104,26 +147,24 @@ class MyDrawer extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => History(),
+                builder: (context) => const History(),
               ));
             },
             ),
             const SizedBox(height: 10),
-            ListTile(
-            leading: const Icon(Icons.privacy_tip_outlined),
-            title: Text(
-              'Privacy Policy',
-              style: GoogleFonts.oswald(
-                fontSize: 20,
-                color: Colors.black,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Privacy(),
-              ));
-            },
-            ),
+                ListTile(
+                  leading: const Icon(Icons.privacy_tip_outlined),
+                  title: Text(
+                    'Privacy Policy',
+                    style: GoogleFonts.oswald(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    _showPrivacyPolicy(context); // Show the privacy policy in a popup
+                  },
+                ),
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.handshake_outlined),

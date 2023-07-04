@@ -39,10 +39,9 @@ class Help extends StatelessWidget {
         title: const Text('Help & FAQs'),
         centerTitle: true,
       ),
-      backgroundColor: Colors.amberAccent,
-      body: const Center(
-        child: Text('H E L P & F A Q S'),
+      body: Container(
+
       ),
-    );
+      );
   }
 }
