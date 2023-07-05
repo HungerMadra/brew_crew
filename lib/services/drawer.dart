@@ -63,6 +63,44 @@ class MyDrawer extends StatelessWidget {
       },
     );
   }
+  void _showTerms(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            'Terms',
+            style: GoogleFonts.oswald(
+              fontSize: 20,
+              color: Colors.black,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 600, // Set a maximum height for the content
+              ),
+              child: Terms(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close the dialog
+              },
+              child: Text(
+                'Accept',
+                style: GoogleFonts.oswald(
+                  fontSize: 15,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
 
@@ -166,21 +204,19 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
             const SizedBox(height: 10),
-            ListTile(
-            leading: const Icon(Icons.handshake_outlined),
-            title: Text(
-              'Terms & Conditions',
-              style: GoogleFonts.oswald(
-                fontSize: 20,
-                color: Colors.black,
-              ),
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Terms(),
-              ));
-            },
-            ),
+                ListTile(
+                  leading: const Icon(Icons.handshake_outlined),
+                  title: Text(
+                    'Terms',
+                    style: GoogleFonts.oswald(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onTap: () {
+                    _showTerms(context); // Show the privacy policy in a popup
+                  },
+                ),
             const SizedBox(height: 10),
             ListTile(
             leading: const Icon(Icons.person_2_outlined),
