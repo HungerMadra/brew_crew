@@ -211,35 +211,46 @@ Widget build(BuildContext context) {
                             if (marketList.isEmpty) {
                               return const Center(child: Text('No markets available'));
                             } else {
-                              return ListView.separated(
+                              return GridView.builder(
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, // Set the number of items in each row
+                                  crossAxisSpacing: 10, // Set the spacing between columns
+                                  mainAxisSpacing: 10, // Set the spacing between rows
+                                ),
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemCount: marketList.length,
-                                separatorBuilder: (context, index) => const Divider(),
+                                //separatorBuilder: (context, index) => const Divider(),
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        //Darker Shadow On Bottom Right
-                                        BoxShadow(
-                                          color: Colors.grey.shade500,
-                                          offset: const Offset(6, 6),
-                                          blurRadius: 15,
-                                          spreadRadius: 1,
-                                        ),
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: 25, // Set the desired width of the card
+                                      height: 50, // Set the desired height of the card
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          //Darker Shadow On Bottom Right
+                                          BoxShadow(
+                                            color: Colors.grey.shade500,
+                                            offset: const Offset(6, 6),
+                                            blurRadius: 15,
+                                            spreadRadius: 1,
+                                          ),
 
-                                        //Lighter Shadow On Top Left
-                                        const BoxShadow(
-                                          color: Colors.white,
-                                          offset: Offset(-6, -6),
-                                          blurRadius: 15,
-                                          spreadRadius: 1,
+                                          //Lighter Shadow On Top Left
+                                          const BoxShadow(
+                                            color: Colors.white,
+                                            offset: Offset(-6, -6),
+                                            blurRadius: 15,
+                                            spreadRadius: 1,
+                                          ),
+                                        ],
+                                      ),
+                                      child: Card(
+                                        elevation: 2, // Adjust the elevation of the card
+                                        child: ListTile(
+                                          title: Text(marketList[index].description),
                                         ),
-                                      ],
-                                    ),
-                                    child: Card(
-                                      child: ListTile(
-                                        title: Text(marketList[index].description),
                                       ),
                                     ),
                                   );
